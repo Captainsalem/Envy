@@ -142,4 +142,5 @@ export const testimonialCardInfo = [
       position: "WordPress Developer",
     },
   },
+  
 ];

@@ -1,7 +1,8 @@
 import type { Config } from "tailwindcss";
 const { default: flattenColorPalette } = require("tailwindcss/lib/util/flattenColorPalette");
+const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
 
-// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
@@ -15,16 +16,16 @@ function addVariablesForColors({ addBase, theme }: any) {
 
 
 const config: Config = {
-  darkMode: "class", // Change from array to string
+  darkMode: "class", 
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}", // Add content array from second config
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}", // Add content array from second config
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}", // Add content array from second config
-    "./src/**/*.{js,ts,jsx,tsx,mdx}", // Add content array from second config
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}", 
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}", 
   ],
   prefix: "",
   theme: {
@@ -85,16 +86,23 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        scroll: "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
+      
     },
   },
   plugins: [
-    require("tailwindcss-animate"), // Merge plugins from first config
-    addVariablesForColors, // Add function from second config
+    require("tailwindcss-animate"), 
+    addVariablesForColors, 
   ],
 };
 
